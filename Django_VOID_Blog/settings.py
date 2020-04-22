@@ -184,8 +184,8 @@ EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
 
 EMAIL_PORT = 465
 
-EMAIL_HOST_USER = 'breezedblog@foxmail.com'  # 帐号
+EMAIL_HOST_USER = '1@1.com'  # 帐号
 
-EMAIL_HOST_PASSWORD = 'uoqqbxlbqljwbgib'  # 授权码（****）
+EMAIL_HOST_PASSWORD = 'abc'  # 授权码（****）
 # 默认邮件
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
