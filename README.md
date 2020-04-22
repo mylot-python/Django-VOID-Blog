@@ -110,29 +110,28 @@
 
 - 首页
 
-![](https://img.breezed.cn/Django_VOID展示1.png)
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA1.png)
 
 - 追番
 
-![](https://img.breezed.cn/Django_VOID展示2.png)
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA2.png)
 
 - 观影
 
-![](https://img.breezed.cn/Django_VOID展示3.png)
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA3.png)
 
 - 阅读
 
-![](https://img.breezed.cn/Django_VOID展示4.png)
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA4.png)
 
 - 音乐
 
-![](https://img.breezed.cn/Django_VOID展示7.png)
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA7.png)
 
 - 友链
 
-![](https://img.breezed.cn/Django_VOID展示5.png)
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA5.png)
 
 - 归档
 
-![](https://img.breezed.cn/Django_VOID展示6.png)
-
+![](https://github.com/mylot-python/Django-VOID-Blog/blob/master/media/image/Django_VOID%E5%B1%95%E7%A4%BA6.png)
