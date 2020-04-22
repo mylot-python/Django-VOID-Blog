@@ -1,0 +1,12 @@
+certifi==2020.4.5.1
+chardet==3.0.4
+Django==2.1.7
+django-mdeditor==0.1.18
+idna==2.9
+lxml==4.5.0
+Markdown==3.2.1
+mistune==0.8.4
+Pillow==7.1.1
+pytz==2019.3
+requests==2.23.0
+urllib3==1.25.9

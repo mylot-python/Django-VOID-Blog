@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block lazy-wrap %}
+  <div class="lazy-wrap loading dark">
+    <div id="banner">
+      <img class="lazyload instant" data-src="{% block head_banner %}https://img.breezed.cn/index_banner.jpg{% endblock %}">
+    </div>
+    <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+    <div class="banner-title">
+      <h1 class="post-title">页面不存在>_<</h1>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block wrapper %}
+  <div class="wrapper container">
+    <div class="contents-wrap">
+      <section id="post" class="float-up">
+        <div class="not-found">
+                <h1>糟糕！这里什么也没有</h1>
+                <p><a href="{% url 'article:IndexPage' %}" class="pjax">← 返回首页</a></p>
+            </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}

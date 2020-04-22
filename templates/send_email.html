@@ -1,0 +1,29 @@
+<div style="
+max-width: 450px;
+margin: 32px auto;
+border: 1px solid rgba(0,0,0,0.1);
+border-radius: 4px;
+padding: 0 12px; ">
+  <p style="font-weight: bold">您好，{{ parent_author }}。</p>
+  <p>您在文章
+    <b>
+      <a target="_blank" style="text-decoration: none;"
+         href="http://127.0.0.1{% url 'article:ArticleDetail' article_id %}" rel="noopener">
+        [{{ article_title }}]
+      </a>
+    </b>上发表的评论：
+  </p>
+  <p style="padding: 12px;
+background: #efefef;
+border-radius: 4px;">{{ parent_content }}</p>
+  <p>收到了来自 <b>{{ instance_author }}</b> 的回复: </p>
+  <p style="padding: 12px;
+background: #efefef;
+border-radius: 4px;">{{ instance_content }}</p>
+  <p>
+    <a style="text-decoration: none;" target="_blank"
+       href="http://127.0.0.1{% url 'article:ArticleDetail' article_id %}#comment-{{ parent_id }}"
+       rel="noopener">查看回复</a>
+    | 欢迎再次来访！
+  </p>
+</div>

@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load article_filter %}
+{% load page_filter %}
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block lazy-wrap %}
+  <!-- banner start -->
+  <div class="lazy-wrap loading dark index">
+    <div id="banner">
+      <img class="lazyload instant" data-src="{% block head_banner %}https://img.breezed.cn/index_banner.jpg{% endblock %}">
+    </div>
+    <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+    <div class="banner-title">
+      <h1 class="post-title">
+        包含分类 "{{ cls_name }}" 的文章 </h1>
+    </div>
+  </div>
+{% endblock %}
+
+{% block wrapper %}
+  <div class="wrapper container wide">
+    <section id="index-list" class="float-up">
+      <ul id="masonry">
+        {% for i in article %}
+          {% if i.style == 0 %}
+            {% include 'articles/style_0.html' %}
+          {% elif i.style == 1 %}
+            {% include 'articles/style_1.html' %}
+          {% elif i.style == 2 %}
+            {% include 'articles/style_2.html' %}
+          {% elif i.style == 3 %}
+            {% include 'articles/style_3.html' %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+    {% include 'articles/article_paginator.html' %}
+  </div>
+{% endblock %}
+
+

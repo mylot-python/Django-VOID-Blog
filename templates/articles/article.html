@@ -1,0 +1,238 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load article_filter %}
+{% load page_filter %}
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block title %}{{ article.title }}{% endblock %}
+{% block hidden-title %}{{ article.title }}{% endblock %}
+
+{% block lazy-wrap %}
+  <div class="lazy-wrap {% if article.style == 0 or article.style == 3 %}no-banner{% else %}loading dark{% endif %}">
+    {% if article.style == 1 or article.style == 2 %}
+      <div id="banner">
+        <img class="lazyload instant" data-src="{{ article.image }}">
+      </div>
+    {% endif %}
+  {% if article.image %}
+      <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+  {% else %}
+      <script>$('body>header').addClass('force-dark').addClass('no-banner');</script>
+  {% endif %}
+
+    <div class="banner-title">
+      <h1 class="post-title">{{ article.title }}</h1>
+      <p class="post-meta">
+        <span itemprop="author">{{ article.author.username }}</span>&nbsp;•&nbsp;
+        <time datetime="发布时间" itemprop="datePublished">{{ article.update_time }}</time>
+        &nbsp;•&nbsp;<a no-pjax target="_self" href="javascript:void(0);"
+                        onclick="VOID_SmoothScroller.scrollTo('#comments', {{ comments_query.object_list.0.id }})">{{ comments_count }}&nbsp;评论</a>
+        &nbsp;•&nbsp;<span>{{ article.clicks }}&nbsp;阅读</span></p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block wrapper %}
+  <div class="wrapper container">
+    <div class="contents-wrap">
+      <section id="post" class="float-up">
+        <article class="post yue" itemscope itemtype="http://schema.org/Article">
+          <h1 hidden itemprop="name">{{ article.title }}</h1>
+          <span hidden itemprop="author">{{ article.author.username }}</span>
+          <time hidden datetime="{{ article.update_time }}"
+                itemprop="datePublished">{{ article.update_time }}</time>
+          <p hidden class="headline" itemprop="headline">{{ article.digest }}</p>
+          {% if article.style == 1 or article.style == 2 %}
+            <div hidden class="post-banner" itemprop="image" itemscope=""
+                 itemtype="https://schema.org/ImageObject">
+              <a no-pjax data-fancybox="gallery" href="{{ article.image_url }}">
+                <img class="lazyload" src="{{ article.image_url }}" data-src="{{ article.image_url }}"/>
+              </a>
+              <meta itemprop="url" content="{{ article.image_url }}">
+            </div>
+          {% endif %}
+          <div itemprop="articleBody" class="full" id="doc-content">
+            {{ article.content | safe }}
+          </div>
+          <section class="tags">
+            {% for tag in article.tag.all %}
+              <a href="{% url 'article:ArticleForTag' tag %} " rel="tag" class="tag-item btn btn-normal btn-narrow">{{ tag }}</a>
+            {% endfor %}
+          </section>
+          <div hidden itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+            <meta itemprop="name" content="breezed | 无风清响">
+            <meta itemprop="url" content="#">
+            <div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+              <meta itemprop="url"
+                    content="https://secure.gravatar.com/avatar/1741a6eef5c824899e347e4afcbaa75d?s=256&amp;r=&amp;d=">
+            </div>
+          </div>
+          <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage"
+                itemid="{{ request.path }}">
+          <meta itemprop="dateModified" content="2019-06-07T19:09:19+08:00">
+          <!-- 赞赏区 -->
+          <div class="social-button" data-url="https://www.breezed.cn{{ request.path }}"
+               data-title="{{ article.title }}"
+               data-excerpt="{{ article.digest }}。"
+               {% if article.image_url %}data-img="{{ article.image_url }}"{% else %}data-img{% endif %}
+               data-twitter="None" data-weibo="无风清响"
+               {% if article.image_url %}data-image="{{ article.image_url }}"{% endif %}>
+            <a data-fancybox="gallery-reward" role=button aria-label="赞赏" data-src="#reward"
+               href="javascript:;"
+               class="btn btn-normal btn-highlight">赏杯咖啡</a>
+            <div hidden id="reward"><img
+              src="https://img.breezed.cn/微信二维码图片.png"></div>
+            <a role=button aria-label="为文章点赞" id="social" href="javascript:void(0);"
+               onclick="VOID_Vote.vote(this);"
+               data-item-id="{{ article.id }}" data-type="up" data-table="content"
+               class="btn btn-normal post-like vote-button">ENJOY
+              <span class="value">{{ article.vote.up }}</span>
+            </a>
+            <a aria-label="分享到微博" href="javascript:void(0);" onclick="Share.toWeibo(this);"
+               class="social-button-icon"><i class="voidicon-weibo"></i></a>
+          </div>
+        </article>
+        <div class="post-pager">
+          <div class="prev">
+            {% if prev != None %}
+              <a href="{% url 'article:ArticleDetail' prev.id %}" class="pjax"><h2>{{ prev.title }}</h2>
+              </a>
+              <p>{{ prev.digest | default:'' }}</p>
+            {% else %}
+              <h2>没有了</h2>
+            {% endif %}
+          </div>
+          <div class="next">
+            {% if next != None %}
+              <a href="{% url 'article:ArticleDetail' next.id %}" class="pjax"><h2>{{ next.title }}</h2>
+              </a>
+              <p>{{ next.digest }}</p></div>
+            {% else %}
+              <h2>没有了</h2>
+            {% endif %}
+        </div>
+      </section>
+    </div> <!--end .contents-wrap-->
+    {% if article.sidebar_show %}
+      <div class="toc-mask" onclick="TOC.close();"></div>
+      <div aria-label="文章目录" class="TOC">
+      </div>
+      <style>#toggle-toc {
+        display: block;
+      }</style>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block comments %}
+
+  <div class="comments-container float-up">
+    <section id="comments" class="container">
+      <script type="text/javascript">(function () {
+        window.TypechoComment = {
+          dom: function (id) {
+            return document.getElementById(id);
+          }, create: function (tag, attr) {
+            var el = document.createElement(tag);
+            for (var key in attr) {
+              el.setAttribute(key, attr[key]);
+            }
+            return el;
+          }, reply: function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+              response = this.dom('respond-post-{{ article.id }}'),
+              input = this.dom('comment-parent'),
+              form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+              textarea = response.getElementsByTagName('textarea')[0];
+            if (null == input) {
+              input = this.create('input', {
+                'type': 'hidden', 'name': 'parent', 'id': 'comment-parent'
+              });
+              form.appendChild(input);
+            }
+            input.setAttribute('value', coid);
+            if (null == this.dom('comment-form-place-holder')) {
+              var holder = this.create('div', {
+                'id': 'comment-form-place-holder'
+              });
+              response.parentNode.insertBefore(holder, response);
+            }
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+            if (null != textarea && 'text' == textarea.name) {
+              textarea.focus();
+            }
+            return false;
+          }, cancelReply: function () {
+            var response = this.dom('respond-post-{{ article.id }}'),
+              holder = this.dom('comment-form-place-holder'),
+              input = this.dom('comment-parent');
+            if (null != input) {
+              input.parentNode.removeChild(input);
+            }
+            if (null == holder) {
+              return true;
+            }
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+          }
+        };
+      })();</script>
+      <div id="respond-post-{{ article.id }}" class="respond">
+        <div class="cancel-comment-reply" role="button">
+          <a id="cancel-comment-reply-link" href="#" rel="nofollow"
+             style="display:none" onclick="return TypechoComment.cancelReply();" class="pjax">取消回复</a>
+        </div>
+        <h3 id="response" class="widget-title text-left">添加新评论</h3>
+        <p class="comment-notification notice">本站现已启用评论投票，被点踩过多的评论将自动折叠。与本文无关评论请发留言板。请不要水评论，谢谢。</p>
+        <form method="post" action="{% url 'article:ArticleComments' article.id %}" id="comment-form">
+          {% csrf_token %}
+          <div class="comment-info-input">
+            <input aria-label="称呼(必填)" type="text" name="author" id="author" placeholder="称呼(必填)" value="">
+            <input aria-label="电子邮件(必填，将保密)" type="email" name="mail" id="mail" placeholder="电子邮件(必填，将保密)"
+                   value="">
+            <input aria-label="网站(选填)" type="url" name="url" id="url" placeholder="网站(选填)" value=""></div>
+          <p style="margin-top:0">
+        <textarea aria-label="评论输入框" class="input-area" rows="5" name="text" id="textarea" placeholder="在这里输入你的评论..."
+                  style="resize:none;"></textarea>
+          </p>
+          <p class="comment-buttons">
+            <span class="OwO" aria-label="表情按钮" role="button"></span>
+            <span class="comment-mail-me">
+          <input aria-label="有回复时通知我" name="receiveMail" type="checkbox" value="yes" id="receiveMail" checked="">
+          <label for="receiveMail">有回复时通知我</label></span>
+            <button id="comment-submit-button" type="submit" class="submit btn btn-normal-comm">提交评论
+            </button>
+          </p>
+        </form>
+      </div>
+      <h3 class="comment-separator">
+        <div class="comment-tab-current">
+      <span class="comment-num">已有
+        <span class="num">{{ comments_query | length }}</span>条评论</span></div>
+      </h3>
+
+      {% if comments_query %}
+        {% include 'articles/comment.html' %}
+      {% endif %}
+    </section>
+  </div>
+
+{% endblock %}
+
+
+
+
+

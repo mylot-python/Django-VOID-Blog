@@ -1,0 +1,22 @@
+{% load article_filter %}
+<li id="p-{{ i.id }}" class="masonry-item style-2">
+  <a href="{% url 'article:ArticleDetail' i.id %}" class="pjax">
+    <article class="yue">
+      <div class="banner">
+        {#                    <img src="{{ i.image }}!/max/64" class="blured-placeholder">#}
+        <img class="lazyload" data-src="{{ i.image }}">
+      </div>
+      <div class="content-wrap">
+        <div class="post-meta-index">
+          <time datetime="{{ i.create_time | date:"Y-m-d" }}">{{ i.create_time | date:"Y-m-d" }}</time>
+          <span class="word-count">+ {{ i.content | count_content }} 字</span>
+        </div>
+        <h1 class="title">{{ i.title }}</h1>
+        <p class="headline content">{{ i.digest }}</p>
+        <div class="articleBody">
+        </div>
+      </div>
+    </article>
+  </a>
+</li>
+<script>VOID_Ui.MasonryCtrler.watch("p-{{ i.id }}");</script>

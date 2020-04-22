@@ -1,0 +1,46 @@
+INFO 2020-04-22 22:12:04,937 basehttp 154 "GET / HTTP/1.1" 200 14708
+INFO 2020-04-22 22:12:05,188 basehttp 154 "GET /static/css/PandaBangumi.css HTTP/1.1" 200 3008
+INFO 2020-04-22 22:12:05,195 basehttp 154 "GET /static/css/bunlde.css HTTP/1.1" 200 33832
+INFO 2020-04-22 22:12:05,208 basehttp 154 "GET /static/css/VOID.css HTTP/1.1" 200 168402
+INFO 2020-04-22 22:12:05,210 basehttp 154 "GET /static/css/DoubanBoard.07.css HTTP/1.1" 200 4613
+INFO 2020-04-22 22:12:05,213 basehttp 154 "GET /static/css/ExSearch.css HTTP/1.1" 200 6518
+INFO 2020-04-22 22:12:05,221 basehttp 154 "GET /static/js/VOID.js HTTP/1.1" 200 14862
+INFO 2020-04-22 22:12:05,222 basehttp 154 "GET /static/js/Meting.js HTTP/1.1" 200 3669
+INFO 2020-04-22 22:12:05,225 basehttp 154 "GET /static/js/MathJax.js HTTP/1.1" 200 304611
+INFO 2020-04-22 22:12:05,226 basehttp 154 "GET /static/js/PandaBangumi.js HTTP/1.1" 200 1975
+INFO 2020-04-22 22:12:05,228 basehttp 154 "GET /static/js/DoubanBoard.js HTTP/1.1" 200 7921
+INFO 2020-04-22 22:12:05,230 basehttp 154 "GET /static/js/header.js HTTP/1.1" 200 13102
+INFO 2020-04-22 22:12:05,232 basehttp 154 "GET /static/js/bundle.js HTTP/1.1" 200 279982
+INFO 2020-04-22 22:12:05,236 basehttp 154 "GET /static/js/bundle-header.js HTTP/1.1" 200 158312
+INFO 2020-04-22 22:12:05,249 basehttp 154 "GET /static/js/ExSearch.js HTTP/1.1" 200 6813
+WARNING 2020-04-22 22:12:05,577 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+INFO 2020-04-22 22:12:05,633 basehttp 154 "GET /media/image/index_banner.jpg HTTP/1.1" 200 213520
+WARNING 2020-04-22 22:12:05,786 log 228 Not Found: /favicon.ico
+WARNING 2020-04-22 22:12:05,786 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5104
+INFO 2020-04-22 22:12:09,498 basehttp 154 "GET /bangumi/?_pjax=%23pjax-container HTTP/1.1" 200 15615
+INFO 2020-04-22 22:12:09,528 views 62 获取bangumi_dict.json失败: [Errno 2] No such file or directory: 'F:\\work\\my_lesson\\python\\django_mod\\Django_VOID_Blog/static/json/bangumi_dict.json'
+INFO 2020-04-22 22:12:09,529 basehttp 154 "GET /bangumi/json/?from=0 HTTP/1.1" 200 2
+INFO 2020-04-22 22:12:09,539 basehttp 154 "GET /media/image/%E8%BF%BD%E7%95%AA.jpg HTTP/1.1" 200 398082
+INFO 2020-04-22 22:12:14,696 basehttp 154 "GET /movie/?_pjax=%23pjax-container HTTP/1.1" 200 15835
+INFO 2020-04-22 22:12:14,732 basehttp 154 "GET /media/image/%E8%A7%82%E5%BD%B1.jpg HTTP/1.1" 200 152804
+INFO 2020-04-22 22:12:16,088 basehttp 154 "GET /bangumi/?_pjax=%23pjax-container HTTP/1.1" 200 15615
+INFO 2020-04-22 22:12:16,102 views 62 获取bangumi_dict.json失败: [Errno 2] No such file or directory: 'F:\\work\\my_lesson\\python\\django_mod\\Django_VOID_Blog/static/json/bangumi_dict.json'
+INFO 2020-04-22 22:12:16,103 basehttp 154 "GET /bangumi/json/?from=0 HTTP/1.1" 200 2
+WARNING 2020-04-22 22:21:59,975 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:23:56,980 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:24:06,820 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:24:06,855 log 228 Not Found: /favicon.ico
+WARNING 2020-04-22 22:24:06,856 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5104
+WARNING 2020-04-22 22:24:24,796 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:24:24,859 basehttp 154 "GET /static/css/fonts/void-icon.eot?64352462 HTTP/1.1" 404 1702
+WARNING 2020-04-22 22:24:28,496 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:24:33,607 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:25:00,041 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:25:00,145 log 228 Not Found: /favicon.ico
+WARNING 2020-04-22 22:25:00,146 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5104
+WARNING 2020-04-22 22:25:31,528 log 228 Not Found: /favicon.ico
+WARNING 2020-04-22 22:25:31,528 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5104
+WARNING 2020-04-22 22:25:32,738 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-22 22:25:32,792 log 228 Not Found: /favicon.ico
+WARNING 2020-04-22 22:25:32,792 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5104
+WARNING 2020-04-22 22:25:42,988 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678

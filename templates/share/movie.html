@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load article_filter %}
+{% load page_filter %}
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block title %}观影{% endblock %}
+{% block hidden-title %}观影{% endblock %}
+
+{% block lazy-wrap %}
+  <div class="lazy-wrap loading dark">
+    <div id="banner">
+
+      <img class="lazyload instant" data-src="/media/image/观影.jpg">
+    </div>
+    <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+    <div class="banner-title">
+      <h1 class="post-title">观影</h1>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block wrapper %}
+  <div class="wrapper container">
+    <div class="contents-wrap">
+      <section id="post" class="float-up">
+        <article class="post yue" itemscope="" itemtype="http://schema.org/Article">
+          <div itemprop="articleBody" class="full">
+            <p class="notice">这里是我的私人放映室，如果有好片推荐尽管私我。</p>
+            <!-- 想看 -->
+            <h2 id="想看">想看</h2>
+            <div data-status="wish" class="douban-movie-list doubanboard-list"></div>
+            <h2 id="已看">已看</h2>
+            <div data-status="watched" class="douban-movie-list doubanboard-list"></div>
+          </div>
+          <!-- 赞赏区 -->
+          <div class="social-button"
+               data-url="https://www.breezed.cn{{ request.path }}"
+               data-title="观影 - breezed | 无风清响"
+               data-excerpt="这里是我的私人放映室，如果有好片推荐尽管私我。"
+               data-img="/media/image/观影.jpg"
+               data-twitter="None" data-weibo="无风清响"
+               data-image="/media/image/观影.jpg">
+            <a data-fancybox="gallery-reward" role=button aria-label="赞赏" data-src="#reward" href="javascript:;"
+               class="btn btn-normal btn-highlight">赏杯咖啡</a>
+            <div hidden id="reward"><img
+              src="https://img.breezed.cn/微信二维码图片.png"></div>
+            <a aria-label="分享到微博" href="javascript:void(0);" onclick="Share.toWeibo(this);"
+               class="social-button-icon"><i class="voidicon-weibo"></i></a>
+          </div>
+        </article>
+      </section>
+    </div> <!--end .contents-wrap-->
+  </div>
+
+{% endblock %}
+
+
+
+

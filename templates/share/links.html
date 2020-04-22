@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load article_filter %}
+{% load page_filter %}
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block title %}友链{% endblock %}
+{% block hidden-title %}友链{% endblock %}
+
+{% block lazy-wrap %}
+  <div class="lazy-wrap loading dark">
+    <div id="banner">
+
+      <img class="lazyload instant" data-src="/media/image/小伙伴.jpg">
+    </div>
+    <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+    <div class="banner-title">
+      <h1 class="post-title">友链</h1>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block wrapper %}
+  <div class="wrapper container">
+    <div class="contents-wrap">
+      <section id="post" class="float-up">
+        <article class="post yue" itemscope="" itemtype="http://schema.org/Article">
+          <div itemprop="articleBody" class="full">
+            <p class="notice">这里是我的小伙伴和大佬们。</p>
+            <!-- 想看 -->
+            <h2 id="小伙伴们">小伙伴们</h2>
+            {% if small %}
+              {% for l in small %}
+                <div class="board-list link-list">
+                <a target="_blank" href="{{ l.site_url }}" class="board-item link-item">
+                  <div class="board-thumb" data-thumb="{{ l.image_url }}">
+                    <img class="lazyload instant loaded" data-src="{{ l.image_url }}" src="{{ l.image_url }}">
+                  </div>
+                  <div class="board-title">{{ l.name }}</div>
+                </a>
+              {% endfor %}
+            {% else %}
+              <p class="notice">目前空空如也, T T, 努力寻找小伙伴中。</p>
+            {% endif %}
+            </div>
+            <hr>
+            <h2 id="大佬们">大佬们</h2>
+            {% if big %}
+              <div class="board-list link-list">
+              {% for l in big %}
+                <a target="_blank" href="{{ l.site_url }}" class="board-item link-item">
+                  <div class="board-thumb" data-thumb="{{ l.image_url }}">
+                    <img class="lazyload instant loaded" data-src="{{ l.image_url }}" src="{{ l.image_url }}">
+                  </div>
+                  <div class="board-title">{{ l.name }}</div>
+                </a>
+              {% endfor %}
+            {% else %}
+              <p class="notice">目前空空如也, T T, 努力寻找大佬中。</p>
+            {% endif %}
+            </div>
+          </div>
+        </article>
+      </section>
+    </div> <!--end .contents-wrap-->
+  </div>
+
+{% endblock %}
+
+
+
+

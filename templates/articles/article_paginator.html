@@ -1,0 +1,39 @@
+{% load page_filter %}
+<ol class="pager">
+      {% if article.has_previous %}
+        <li class="prev"><a href="{% url 'index:IndexPage' %}?page={{ article.previous_page_number }}"
+                            class="pjax"><span aria-label="文章上一页">←</span></a></li>
+      {% endif %}
+      {% for num in article|to_page_list %}
+        {% if num == article.number %}
+          {% if num == '...' %}
+            <li><span>{{ num }}</span></li>
+          {% else %}
+            {% if article.paginator.num_pages == 1 %}
+            {% else %}
+              <li class="current">
+                <a href="{% url 'index:IndexPage' %}?page={{ num }}"
+                   class="pjax">{{ num }}</a>
+              </li>
+            {% endif %}
+          {% endif %}
+        {% else %}
+          {% if num == '...' %}
+            <li><span>{{ num }}</span></li>
+          {% else %}
+            <li>
+              <a href="{% url 'index:IndexPage' %}?page={{ num }}"
+                 class="pjax">{{ num }}</a>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% if article.has_next %}
+        <li class="next">
+          <a href="{% url 'index:IndexPage' %}?page={{ article.next_page_number }}"
+             class="pjax">
+            <span aria-label="文章下一页">→</span>
+          </a>
+        </li>
+      {% endif %}
+    </ol>

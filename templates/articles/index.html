@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+
+{% block lazy-wrap %}
+  <!-- banner start -->
+  <div class="lazy-wrap loading dark index">
+    <div id="banner">
+      <img class="lazyload instant"
+           data-src="/media/image/index_banner.jpg">
+    </div>
+    <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+    <div class="banner-title index force-normal">
+      <h1 class="post-title">
+        <!-- banner文字区 -->
+        <span class="brand"><span>breezed | 无风清响</span></span><br><span class="subtitle">A floating moon, You still croon?</span>
+      </h1>
+    </div>
+  </div>
+{% endblock %}
+
+{% block wrapper %}
+  <div class="wrapper container wide">
+    <section id="index-list" class="float-up">
+      <ul id="masonry">
+        {% for i in article %}
+          {% if i.style == 0 %}
+            {% include 'articles/style_0.html' %}
+          {% elif i.style == 1 %}
+            {% include 'articles/style_1.html' %}
+          {% elif i.style == 2 %}
+            {% include 'articles/style_2.html' %}
+          {% elif i.style == 3 %}
+            {% include 'articles/style_3.html' %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+    {% include 'articles/article_paginator.html' %}
+  </div>
+{% endblock %}
+

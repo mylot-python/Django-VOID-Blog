@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load article_filter %}
+
+
+{% block cls %}
+  {% for c in cls %}
+    <li><a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block mobile_cls %}
+  {% for c in cls %}
+    <a href="/category/{{ c.name }}/" class="pjax">{{ c.name }}</a>
+  {% endfor %}
+{% endblock %}
+
+{% block title %}归档{% endblock %}
+{% block hidden-title %}归档{% endblock %}
+
+{% block lazy-wrap %}
+  <div class="lazy-wrap loading dark">
+    <div id="banner">
+      <img class="lazyload instant" data-src="/media/image/归档.jpg">
+    </div>
+    <script>$('body>header').removeClass('force-dark').removeClass('no-banner');</script>
+    <div class="banner-title">
+      <h1 class="post-title">归档</h1>
+      <p class="post-meta">
+        {{ cls_count }} 分类 × {{ article_count }} 文章 × {{ tags.count }} 标签 × <span id="totalWordCount"></span> 字 </p>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block wrapper %}
+  <div class="wrapper container narrow">
+    <div class="tag-cloud yue float-up">
+      <h2>Tags</h2>
+      {% for tag in tags %}
+        <a href="{% url 'article:ArticleForTag' tag.name %}" rel="tag" class="tag-item btn btn-normal btn-narrow pjax"
+           title="11 个话题">{{ tag.name }}</a>
+      {% endfor %}
+    </div>
+
+    <section id="archive-list" class="yue float-up">
+      {% for year in year_list reversed %}
+        {% for article in article_set.items %}
+          {% if article.0 == year %}
+            <h2>{{ article.0 }} <span class="num-posts">{{ article.1 | length }} 篇</span>
+              <a no-pjax="" target="_self" data-num="{{ article.1 | length }}" data-year="{{ article.0 }}"
+                 class="toggle-archive" href="javascript:void(0);"
+                 onclick="VOID_Ui.toggleArchive(this); return false;">{% if article.0 == this_year %}-{% else %}
+                +{% endif %}</a>
+            </h2>
+            <section id="year-{{ article.0 }}"
+                     class="{% if article.0 == this_year %}year{% else %}year shrink{% endif %}"
+                     style="{% if article.0 == this_year %}{% else %}max-height: 0;{% endif %}">
+              <ul>
+                {% for i in article.1 %}
+                  <li>
+                    <a class="archive-title show-word-count pjax"
+                       data-words="{{ i.content | count_content }}"
+                       href="{% url 'article:ArticleDetail' i.id %}">
+                      <span class="date">{{ i.create_time | date:"m-d" }}</span>{{ i.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </section>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </section>
+  </div>
+
+{% endblock %}
+
+
+
+
+

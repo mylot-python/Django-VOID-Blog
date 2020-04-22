@@ -1,0 +1,150 @@
+{% load article_filter %}
+{% load page_filter %}
+
+<div class="comment-list">
+
+  {% for comm in comments_query %}
+    <div id="comment-{{ comm.id }}" class="comment-body comment-parent">
+      <div class="comment-content-wrap">
+        <div class="comment-meta">
+          <div class="comment-author" {% if comm.author == '无风清响' %}id="comment-by-author"{% endif %}>
+                <span class="comment-avatar">
+                  <img class="avatar" src="https://cdn.v2ex.com/gravatar/{{ comm.mail | to_md5 }}?d="
+                       alt="{{ comm.author }}" width="64" height="64"/>
+                </span>
+            <b>
+              <cite class="fn">
+                <a href="{{ comm.url | default:'javascript:void(0);' }}" rel="external nofollow">{{ comm.author }}</a>
+              </cite>
+            </b>
+            <span></span>
+          </div>
+          <span>
+                <a href="{{ request.path }}#comment-{{ comm.id }}">
+                  <time itemprop="commentTime" datetime="{{ comm.update_time }}">{{ comm.update_time }}</time>
+                </a>
+                <a style="margin: 0 5px" no-pjax target="_self" class="comment-vote vote-button"
+                   href="javascript:void(0)" onclick="VOID_Vote.vote(this)" data-item-id="{{ comm.id }}" data-type="up"
+                   data-table="comment">
+                  <i class="voidicon-thumbs-up"></i>
+                  <span class="value">{{ comm.vote.up }}</span>
+                </a>
+                <a no-pjax target="_self" class="comment-vote vote-button" href="javascript:void(0)"
+                   onclick="VOID_Vote.vote(this)" data-item-id="{{ comm.id }}" data-type="down" data-table="comment">
+                  <i class="voidicon-thumbs-down"></i>
+                  <span class="value">{{ comm.vote.down }}</span></a>
+              </span>
+        </div>
+
+        <div class="comment-content yue">
+          <div class="comment-content-inner">
+            {{ comm.content | safe }}
+          </div>
+        </div>
+        <div class="comment-reply">
+          <a no-pjax href="{{ request.path }}comment-page-1?replyTo={{ comm.id }}#respond-post-{{ article.id }}"
+             rel="nofollow" onclick="return TypechoComment.reply('comment-{{ comm.id }}', {{ comm.id }});">回复</a>
+        </div>
+      </div>
+      {% if comm.child_list %}
+        <div class="comment-children">
+          <div class="comment-list">
+            {% for child in comm.child_list %}
+              <div id="comment-{{ child.id }}" class="comment-body comment-parent">
+                <div class="comment-content-wrap">
+                  <div class="comment-meta">
+                    <div class="comment-author" {% if child.author == '无风清响' %}id="comment-by-author"{% endif %}>
+                <span class="comment-avatar">
+                  <img class="avatar" src="https://cdn.v2ex.com/gravatar/{{ child.mail | to_md5 }}?d="
+                       alt="{{ child.author }}" width="64" height="64"/>
+                </span>
+                      <b>
+                        <cite class="fn">
+                          <a href="{{ child.url | default:'javascript:void(0);' }}"
+                             rel="external nofollow">{{ child.author }}</a>
+                        </cite>
+                      </b>
+                      <span style="font-size: 0.9rem">回复</span> <b style="font-size:0.9rem;margin-right: 0.3em">@{{ child.parent.author }}</b> </span>
+                    </div>
+                    <span>
+                <a href="{{ request.path }}#comment-{{ child.id }}">
+                  <time itemprop="commentTime" datetime="{{ child.update_time }}">{{ child.update_time }}</time>
+                </a>
+                <a style="margin: 0 5px" no-pjax target="_self" class="comment-vote vote-button"
+                   href="javascript:void(0)" onclick="VOID_Vote.vote(this)" data-item-id="{{ child.id }}" data-type="up"
+                   data-table="comment">
+                  <i class="voidicon-thumbs-up"></i>
+                  <span class="value">{{ child.vote.up }}</span>
+                </a>
+                <a no-pjax target="_self" class="comment-vote vote-button" href="javascript:void(0)"
+                   onclick="VOID_Vote.vote(this)" data-item-id="{{ child.id }}" data-type="down" data-table="comment">
+                  <i class="voidicon-thumbs-down"></i>
+                  <span class="value">{{ child.vote.down }}</span></a>
+              </span>
+                  </div>
+
+                  <div class="comment-content yue">
+                    <div class="comment-content-inner">
+                      {{ child.content | safe }}
+                    </div>
+                  </div>
+                  <div class="comment-reply">
+                    <a no-pjax
+                       href="{{ request.path }}comment-page-1?replyTo={{ child.id }}#respond-post-{{ article.id }}"
+                       rel="nofollow"
+                       onclick="return TypechoComment.reply('comment-{{ child.id }}', {{ child.id }});">回复</a>
+                  </div>
+                </div>
+
+              </div>
+            {% endfor %}
+
+          </div>
+
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+</div>
+<ol class="pager">
+  {% if comments_query.has_previous %}
+    <li class="prev"><a
+      href="{% url 'article:ArticleDetail' article.id %}?page={{ comments_query.previous_page_number }}#comments"
+      class="pjax"><span aria-label="评论上一页">←</span></a></li>
+  {% endif %}
+  {% for num in comments_query|to_page_list %}
+    {% if num == comments_query.number %}
+      {% if num == '...' %}
+        <li><span>{{ num }}</span></li>
+      {% else %}
+        {% if comments_query.paginator.num_pages == 1 %}
+        {% else %}
+          <li class="current">
+            <a href="{% url 'article:ArticleDetail' article.id %}?page={{ num }}#comments"
+               class="pjax">{{ num }}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      {% if num == '...' %}
+        <li><span>{{ num }}</span></li>
+      {% else %}
+        <li>
+          <a href="{% url 'article:ArticleDetail' article.id %}?page={{ num }}#comments"
+             class="pjax">{{ num }}</a>
+        </li>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if comments_query.has_next %}
+    <li class="next">
+      <a href="{% url 'article:ArticleDetail' article.id %}?page={{ comments_query.next_page_number }}#comments"
+         class="pjax">
+        <span aria-label="评论下一页">→</span>
+      </a>
+    </li>
+  {% endif %}
+
+</ol>

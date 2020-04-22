@@ -1,0 +1,4 @@
+.idea/
+.static/json/
+.logs/
+db.sqlite3

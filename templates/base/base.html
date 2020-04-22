@@ -1,0 +1,362 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- title start -->
+  <title>{% block title %}breezed | 无风清响{% endblock %}</title>
+  <!-- title end -->
+  <!-- author start -->
+  <meta name="author" content="无风清响"/>
+  <!-- author end -->
+  <!-- description start -->
+  <meta name="description" content="「站在巨人肩膀上缓慢前行」。"/>
+  <!-- description end -->
+  <!-- sns start -->
+  <meta property="og:title" content="breezed | 无风清响"/>
+  <meta property="og:description" content="「breezed」是无风清响的博客站点，缓慢前行。"/>
+  <meta property="og:site_name" content="breezed | 无风清响"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="#"/>
+  <meta property="og:image" content=""/>
+  <!-- sns end -->
+  <!-- twitter start -->
+  <meta name="twitter:title" content="breezed | 无风清响"/>
+  <meta name="twitter:description" content="「breezed」是无风清响的博客站点，缓慢前行。"/>
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:image" content=""/>
+  <!-- twitter end -->
+  <!-- 站点类型关键词 start -->
+  <meta name="keywords" content="breezed,无风清响,Django,Python,blog,Typecho,VOID"/>
+  <meta name="generator" content="Django2.1.7/python3.6.8"/>
+  <meta name="template" content="VOID"/>
+  <!-- 站点类型关键词 end -->
+  <!-- head css javascript start -->
+  <link href="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.css" rel="stylesheet">
+  <script src="https://lib.baomitu.com/aplayer/1.10.1/APlayer.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/PandaBangumi.css' %}"/>
+  <script>var bgmBase = "{% url 'bangumi:BangumiJson' %}"</script>
+  <link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/dplayer/1.25.0/DPlayer.min.css"/>
+  <script>var dPlayers = [];</script>
+  <script>ExSearchConfig = {
+    root: "", api: "/static/json/ExSearch.json"
+  }
+  </script>
+  <link rel="stylesheet" href="{% static 'css/bunlde.css' %}">
+  <link rel="stylesheet" href="{% static 'css/VOID.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ExSearch.css' %}">
+  <script src="{% static 'js/bundle-header.js' %}"></script>
+  <!-- 主题设定 -->
+  <script>VOIDConfig = {
+    PJAX: true,
+    searchBase: "http://127.0.0.1/search/",
+    home: "http://127.0.0.1/",  // 主页
+    buildTime: "2019-10-01T10:10",  //建站时间
+    enableMath: true,
+    lazyload: true,
+    colorScheme: 0,
+    headerMode: 1,
+    followSystemColorScheme: false,
+    VOIDPlugin: true,
+    votePath: "{% url 'article:ArticleVote' %}",
+    lightBg: "",
+    darkBg: "",
+    lineNumbers: true,
+    darkModeTime: {'start': 18, 'end': 7},
+    horizontalBg: false,
+    verticalBg: false,
+    indexStyle: 0,
+    version: 3.3,
+    isDev: true
+  }
+  </script>
+  <script src="{% static 'js/header.js' %}"></script>
+  <style>.brand {
+    font-family: FZCuJinLFW, serif;
+    font-weight: normal !important;
+  }
+
+  @media screen and (max-width: 324.5px) {
+    main .lazy-wrap .banner-title .post-title {
+      font-size: 2.1rem
+    }
+  }</style>
+  <!-- head css javascript end -->
+  {% block css %}
+  {% endblock %}
+  <!-- HTTP 响应头控制 DNS 预取功能通过对用户可以选择跟随，以及通过在文档，包括图片，CSS，JavaScript 和等参考项的 URL 都链接浏览器主动进行域名解析 -->
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <!-- DNS预解析技术 -->
+  <link rel="dns-prefetch" href="#"/>
+  <link rel="dns-prefetch" href="#"/>
+  <!-- 针对苹果电脑的优化 start -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="apple-touch-icon" sizes="180x180" href="">
+  <!-- 针对苹果电脑的优化 end -->
+  <!-- 内置小图标 start -->
+  <link rel="icon" type="image/png" sizes="32x32" href="">
+  <!-- 内置小图标 end -->
+  <meta name="application-name" content="breezed">
+  <meta name="apple-mobile-web-app-title" content="breezed">
+  <!-- msapplication-TileColor检验背景色?? -->
+  <meta name="msapplication-TileColor" content="#000000">
+  <!-- 图标和浏览器颜色 -->
+  <meta name="theme-color" content="#000000">
+  <!-- 允许将站点添加至主屏幕，是 PWA 提供的一项重要功能 -->
+  <link rel="manifest" href="">
+  <style>.yue code, .yue tt {
+    font-family: "Fira Code", Menlo, Monaco, Consolas, "Courier New", monospace
+  }</style>
+</head>
+<body fontsize="2" class=" line-numbers lazyload-img {% if article.sidebar %}sidebar-show{% endif %}">
+<header class="header-mode-1 force-dark no-banner">
+  <div class="container wider">
+    <!-- 头部导航条 start -->
+    <nav>
+      <a role=button aria-label="展开导航" class="toggle" target="_self" href="javascript:void(0);"
+         onclick="VOID_Ui.toggleNav(this);">
+        <span></span>
+      </a>
+      <a class="brand" href="#">无风清响</a>
+      <a href="{% url 'article:IndexPage' %}" class="pjax">首页</a>
+      <a href="{% url 'bangumi:BangumiPage' %}" class="pjax">追番</a>
+      <a href="{% url 'movie:MoviePage' %}" class="pjax">观影</a>
+      <a href="{% url 'book:BookPage' %}" class="pjax">阅读</a>
+      <a href="{% url 'music:MusicPage' %}" class="pjax">音乐</a>
+      <a href="{% url 'article:ArticleArchives' %}" class="pjax">归档</a>
+      {% block category %}
+      {% endblock %}
+      <span class="dropdown">分类
+          <ul>
+            {% block cls %}
+            {% endblock %}
+          </ul>
+      </span>
+      <span class="dropdown">踪迹
+          <ul>
+            <li><a target="_blank" href="https://weibo.com/5964361965">新浪微博</a></li>
+          </ul>
+        </span>
+      <a class="search-form-input" style="display:block" role=button aria-label="展开搜索" id="toggle-mobile-search"
+         target="_self" href="javascript:void(0);" onclick="">
+        <i class="voidicon-search"></i>
+      </a>
+      <a target="_self" href="javascript:void(0);" id="toggle-setting" onclick="VOID_Ui.toggleSettingPanel();">
+        <i class="voidicon-cog"></i>
+      </a>
+    </nav>
+    <!-- 头部导航条 end -->
+  </div>
+  <!-- 头部搜索栏 start -->
+  <div class="mobile-search-form">
+    <label for="search_new">搜索</label>
+    <input onkeydown="VOID.enterSearch(this);" type="text" name="search-content" id="search_new" required
+           placeholder="输入内容然后 Go!"/>
+    <button onclick="VOID.startSearch('#search_new');">Go!</button>
+  </div>
+  <!-- 头部搜索栏 end -->
+</header>
+<!-- 手机导航 start -->
+<div id="nav-mobile">
+  <section id="pages" data-title="PAGES">
+    <nav>
+      <a href="{% url 'article:IndexPage' %}" class="pjax">首页</a>
+
+    </nav>
+  </section>
+  <section id="categories" data-title="CATEGORIES">
+    <nav>
+      {% block mobile_cls %}
+
+      {% endblock %}
+    </nav>
+  </section>
+  <section data-title="踪迹">
+    <nav>
+      <a target="_blank" href="https://weibo.com/5964361965">新浪微博</a>
+      <a target="_blank" href="#">码云</a>
+      <a target="_blank" href="#">TG群组</a>
+      <a target="_blank" href="#">QQ群组</a>
+    </nav>
+  </section>
+</div>
+<!-- 手机导航 end -->
+<!-- main start -->
+<main id="pjax-container">
+  <!-- 隐藏title -->
+  <title hidden>{% block hidden-title %}breezed | 无风清响{% endblock %}</title>
+  <!-- banner start -->
+  {% block lazy-wrap %}
+  {% endblock %}
+  <!-- banner end -->
+  <!-- wrapper start -->
+  {% block wrapper %}
+  {% endblock %}
+  <!-- wrapper start -->
+  {% block comments %}
+  {% endblock %}
+</main>
+<!-- main end -->
+<!-- footer start -->
+<footer>
+  <div class="container">
+    <section>
+      <p>感谢陪伴：<span id="uptime"></span></p>
+      <p>© 2019 <span class="brand">breezed | 无风清响</span></p>
+    </section>
+    <section>
+      <p>Theme by <a href="https://github.com/AlanDecode/Typecho-Theme-VOID/releases">VOID</a> • Powered by <a
+        href="https://www.djangoproject.com/">Django</a>
+      </p>
+      <p>
+        <a href="http://www.beian.miit.gov.cn" target="_blank">粤 ICP 备 123 号</a>
+        |
+        <a href="https://www.huaweicloud.com" target="_blank">华为云</a>
+      </p>
+    </section>
+  </div>
+</footer>
+<!-- footer end -->
+<!-- 右下角导航按钮 start -->
+<aside id="ctrler-panel">
+  <div class="ctrler-item" id="go-top">
+    <a target="_self" aria-label="返回顶部" href="javascript:void(0);" style="transform: translateX(-2px);"
+       onclick="VOID_SmoothScroller.scrollTo(0);"><i class="voidicon-up"></i></a>
+  </div>
+  <div aria-label="展开或关闭设置面板" id="toggle-setting-pc" class="ctrler-item hidden-xs">
+    <a target="_self" href="javascript:void(0);" style="transform: translateX(-2px);"
+       onclick="VOID_Ui.toggleSettingPanel();"><i class="voidicon-cog"></i></a>
+  </div>
+  <div aria-label="展开或关闭文章目录" class="ctrler-item" id="toggle-toc">
+    <a target="_self" href="javascript:void(0);" style="margin-left: -2px" onclick="TOC.toggle()"><i
+      class="voidicon-left"></i></a>
+  </div>
+</aside>
+<aside hidden id="setting-panel">
+  <section>
+    <div id="toggle-night">
+      <a target="_self" href="javascript:void(0)" onclick="VOID_Ui.DarkModeSwitcher.toggleByHand();"><i></i></a>
+    </div>
+    <div id="adjust-text-container">
+      <div class="adjust-text-item">
+        <a target="_self" href="javascript:void(0)" onclick="VOID_Ui.adjustTextsize(false);"><i
+          class="voidicon-font"></i>-</a>
+        <span id="current_textsize"></span>
+        <a target="_self" href="javascript:void(0)" onclick="VOID_Ui.adjustTextsize(true);"><i
+          class="voidicon-font"></i>+</a>
+      </div>
+      <div class="adjust-text-item">
+        <a target="_self" class="font-indicator  checked" href="javascript:void(0)"
+           onclick="VOID_Ui.toggleSerif(this, false);">Sans</a>
+        <a target="_self" class="font-indicator " href="javascript:void(0)" onclick="VOID_Ui.toggleSerif(this, true);">Serif</a>
+      </div>
+    </div>
+  </section>
+  <section id="links">
+    <a target="_self" class="link" href="javascript:void(0)" onclick="VOID_Ui.toggleLoginForm()"><i
+      class="voidicon-user"></i></a>
+    <a class="link" title="GitHub" target="_blank" href="#github地址"><i class="voidicon-github"></i></a><a
+    class="link" title="微博" target="_blank" href="https://weibo.com/5964361965"><i class="voidicon-weibo"></i></a><a
+    class="link" title="Twitter" target="_blank" href="#twitter地址"><i class="voidicon-twitter"></i></a><a
+    class="link" title="Telegram" target="_blank" href="#Telegram地址"><i class="voidicon-telegram"></i></a>
+  </section>
+  <section id="login-panel">
+    {% if request.user.is_authenticated %}
+      <p><a href="{% url 'admin:index' %}" target="_self">欢迎回来!点我去后台</a></p>
+    {% else %}
+      <form action="/admin/login/?next=/admin/" id="login-form"
+            method="post" name="login" role="form">
+        {% csrf_token %}
+        <div id="loggin-inputs">
+          <input type="text" name="username" id="id_username" autocomplete="username" placeholder="请输入用户名" required/>
+          <input type="password" name="password" id="id_password" autocomplete="current-password" placeholder="请输入密码"
+                 required/>
+          <input type="hidden" name="referer" value="/admin/">
+        </div>
+        <div class="buttons" id="loggin-buttons">
+          <button class="btn btn-normal" type="button"
+                  onclick="$('#login-panel').removeClass('show');$('#setting-panel').removeClass('show')">关闭
+          </button>
+          <button class="btn btn-normal" type="submit" onclick="VOID_Ui.rememberPos()">登录</button>
+          <span hidden id="wait" class="btn btn-normal">请稍等……</span>
+        </div>
+      </form>
+    {% endif %}
+  </section>
+</aside>
+<!-- 右下角导航按钮 end -->
+<!-- javascript start -->
+<script src="{% static 'js/bundle.js' %}"></script>
+<script src="{% static 'js/MathJax.js' %}"></script>
+<script src="{% static 'js/VOID.js' %}"></script>
+
+
+<script>
+  if ($(".OwO").length > 0) {
+    new OwO({
+      logo: 'OωO',
+      container: document.getElementsByClassName('OwO')[0],
+      target: document.getElementsByClassName('input-area')[0],
+      api: '{% static "assets/libs/owo/OwO_01.json" %}',
+      position: 'down',
+      width: '400px',
+      maxHeight: '250px'
+    });
+  }
+</script>
+<script>$(document).on('pjax:complete', function () {
+  loadMeting();
+  loadDPlayer();
+  var e = /([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi, r = window.location.href, t = document.referrer;
+  if (!e.test(r)) {
+    var o = "https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif";
+    t ? (o += "?r=" + encodeURIComponent(document.referrer), r && (o += "&l=" + r)) : r && (o += "?l=" + r);
+    var i = new Image;
+    i.src = o
+  }
+})
+function ExSearchCall(item) {
+  if (item && item.length) {
+    $('.ins-close').click();
+    let url = item.attr('data-url');
+    $.pjax({url: url, container: '#pjax-container', fragment: '#pjax-container', timeout: 8000,});
+  }
+}
+</script>
+<script type="text/javascript" src="https://lib.baomitu.com/dplayer/1.25.0/DPlayer.min.js"></script>
+<script type="text/javascript" src="{% static 'js/Meting.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/PandaBangumi.js' %}"></script>
+<script>
+  function loadDPlayer() {
+    var len = document.querySelectorAll(".dplayer").length;
+    for (var i = 0; i < len; i++) {
+      var setting = JSON.parse(document.querySelectorAll(".dplayer")[i].dataset.setting);
+      dPlayers[i] = new DPlayer({
+        element: document.getElementById('player' + setting.id),
+        screenshot: false,
+        autoplay: setting.autoplay,
+        video: setting.video,
+        theme: setting.theme,
+        danmaku: setting.danmuku,
+      });
+    }
+  }
+
+  loadDPlayer();
+</script>
+<link rel="stylesheet" href="{% static 'css/DoubanBoard.07.css' %}"/>
+<script type="text/javascript" src="{% static 'js/DoubanBoard.js' %}"></script>
+<script>var DoubanPageSize = 4</script>
+<script>var DoubanAPI = "http://127.0.0.1/movie/json/"</script>
+<script>var DoubanAPI2 = "http://127.0.0.1/book/json/"</script>
+<script src="{% static 'js/ExSearch.js' %}"></script>
+<!-- javascript end -->
+{% block sctipt %}
+{% endblock %}
+</body>
+</html>
