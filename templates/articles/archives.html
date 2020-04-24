@@ -44,7 +44,7 @@
     </div>
 
     <section id="archive-list" class="yue float-up">
-      {% for year in year_list reversed %}
+      {% for year in year_list %}
         {% for article in article_set.items %}
           {% if article.0 == year %}
             <h2>{{ article.0 }} <span class="num-posts">{{ article.1 | length }} 篇</span>

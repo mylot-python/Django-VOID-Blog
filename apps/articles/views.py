@@ -1,4 +1,4 @@
-import json, logging, mistune, os, time
+import json, logging, mistune, os, time, itertools, operator
 
 from django.core.paginator import Paginator, EmptyPage
 from django.db.models import Count
@@ -269,25 +269,24 @@ class ArticleArchives(View):
         # 获取今年
         this_year = int(time.strftime("%Y", time.localtime()))
         # 获取文章
-        article_query = models.Article.objects.only(
+        articles = models.Article.objects.only(
             'id', 'title', 'content', 'create_time'
-        ).filter(is_delete=False).order_by('create_time')
+        ).filter(is_delete=False).annotate(year=ExtractYear('create_time')).order_by('year')
 
-        if article_query:
+        if articles:
             # 统计文章数
-            article_count = article_query.count()
+            article_count = articles.count()
+            year_dict = articles.values('year').annotate(nums=Count('year'))
+            year_list = [i['year'] for i in list(year_dict[::-1])]
+            # 指定year属性排序
+            sort_key = operator.attrgetter('year')
+            article_list = sorted(articles, key=sort_key)
+            group_dict = {year: list(obj_iterator) for year, obj_iterator in itertools.groupby(article_list, sort_key)}
+            article_set = dict(sorted(group_dict.items(), key=lambda x: x[0], reverse=True))
+            # 获取所有标签
+            tags = models.Tag.objects.only('name').all()
             # 统计分类数
             cls_count = models.Category.objects.only('id').count()
-            # 年统计
-            years = models.Article.objects.values('create_time').annotate(year=ExtractYear('create_time')).values(
-                'year').annotate(
-                nums=Count('year')).order_by('year')
-            year_list = [i['year'] for i in list(years[::-1])]
-            # 按年分组
-            article_set = {}
-            for i in year_list:
-                article_set.setdefault(i, article_query.filter(create_time__year=i))
-            tags = models.Tag.objects.only('name').all()
             context = {
                 'this_year': this_year,
                 'article_set': article_set,
