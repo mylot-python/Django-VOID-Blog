@@ -1,6 +1,8 @@
 import json, logging, mistune, os, time
 
 from django.core.paginator import Paginator, EmptyPage
+from django.db.models import Count
+from django.db.models.functions import ExtractYear
 from django.shortcuts import render, render_to_response
 from django.views import View
 from django.http import HttpResponse, JsonResponse
@@ -82,8 +84,7 @@ class ArticleDetail(View):
             # 获取当前文章的所有评论
             all_comments = models.Comments.objects.select_related('vote').only(
                 'id', 'content', 'author', 'update_time', 'parent', 'url', 'mail', 'parent',
-                'vote__up', 'vote__down'
-            ).filter(article_id=article_id,is_delete=False).order_by('-update_time')
+                'vote__up', 'vote__down').filter(article_id=article_id, is_delete=False).order_by('-update_time')
             # 获取parent=None的一级评论
             comments = all_comments.filter(parent=None)
             # 对评论分页
@@ -98,7 +99,7 @@ class ArticleDetail(View):
             }
             return render(request, 'articles/article.html', context=context)
         else:
-            return HttpResponse('err')
+            return render(request, '404.html')
 
 
 class ArticleComments(View):
@@ -223,15 +224,17 @@ class ArticleForTag(View):
     def get(self, request, tag_name):
         article = models.Article.objects.select_related('author').only(
             'id', 'title', 'digest', 'image', 'create_time', 'update_time',
-            'style', 'content', 'author__username'
-        ).filter(is_delete=False, tag__name=tag_name)
-        article_query = page_paginator(request, article)
-        context = {
-            'article': article_query,
-            'tag_name': tag_name,
-            'cls': models.Category.objects.all(),
-        }
-        return render(request, 'articles/index.html', context=context)
+            'style', 'content', 'author__username').filter(is_delete=False, tag__name=tag_name)
+        if article:
+            article_query = page_paginator(request, article)
+            context = {
+                'article': article_query,
+                'tag_name': tag_name,
+                'cls': models.Category.objects.all(),
+            }
+            return render(request, 'articles/index.html', context=context)
+        else:
+            return render(request, '404.html')
 
 
 class ArticleForCategory(View):
@@ -243,15 +246,17 @@ class ArticleForCategory(View):
     def get(self, request, cls_name):
         article = models.Article.objects.select_related('author').only(
             'id', 'title', 'digest', 'image', 'create_time', 'update_time',
-            'style', 'content', 'author__username'
-        ).filter(is_delete=False, category__name=cls_name)
-        article_query = page_paginator(request, article)
-        context = {
-            'article': article_query,
-            'cls_name': cls_name,
-            'cls': models.Category.objects.all(),
-        }
-        return render(request, 'articles/category.html', context=context)
+            'style', 'content', 'author__username').filter(is_delete=False, category__name=cls_name)
+        if article:
+            article_query = page_paginator(request, article)
+            context = {
+                'article': article_query,
+                'cls_name': cls_name,
+                'cls': models.Category.objects.all(),
+            }
+            return render(request, 'articles/category.html', context=context)
+        else:
+            return render(request, '404.html')
 
 
 class ArticleArchives(View):
@@ -273,17 +278,12 @@ class ArticleArchives(View):
             article_count = article_query.count()
             # 统计分类数
             cls_count = models.Category.objects.only('id').count()
-            # 年列表
-            year_list = []
-            last_yaer = int(article_query.last().create_time.strftime("%Y"))
-            first_year = int(article_query.first().create_time.strftime("%Y"))
-            gap = last_yaer - first_year
-            if gap != 0:
-                for i in range(gap+1):
-                    year_list.append(first_year)
-                    first_year = first_year + 1
-            else:
-                year_list.append(last_yaer)
+            # 年统计
+            years = models.Article.objects.values('create_time').annotate(year=ExtractYear('create_time')).values(
+                'year').annotate(
+                nums=Count('year')).order_by('year')
+            year_list = [i['year'] for i in list(years[::-1])]
+            # 按年分组
             article_set = {}
             for i in year_list:
                 article_set.setdefault(i, article_query.filter(create_time__year=i))
