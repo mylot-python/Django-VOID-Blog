@@ -37,10 +37,11 @@
         <article class="post yue" itemscope="" itemtype="http://schema.org/Article">
           <div itemprop="articleBody" class="full">
             <p class="notice">这里是我的私人音悦台。</p>
-            <div class="aplayer aplayer-withlrc aplayer-withlist"
-                 data-id="{% if list_num %}{{ list_num }}{% else %}3032657695{% endif %}"
-                 data-server="{% if server %}{{ server }}{% else %}netease{% endif %}" data-type="playlist"
-                 data-order="list"></div>
+            <meting-js
+              server="{% if server %}{{ server }}{% else %}netease{% endif %}"
+              type="playlist"
+              id="{% if list_num %}{{ list_num }}{% else %}3032657695{% endif %}">
+            </meting-js>
           </div>
           <!-- 赞赏区 -->
           <div class="social-button"

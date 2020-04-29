@@ -328,8 +328,8 @@ function ExSearchCall(item) {
   }
 }
 </script>
-<script type="text/javascript" src="https://lib.baomitu.com/dplayer/1.25.0/DPlayer.min.js"></script>
-<script type="text/javascript" src="{% static 'js/Meting.js' %}"></script>
+<script>var meting_api = "/music/api/?server=:server&type=:type&id=:id&auth=:auth&r=:r";</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
 <script type="text/javascript" src="{% static 'js/PandaBangumi.js' %}"></script>
 <script>
   function loadDPlayer() {
