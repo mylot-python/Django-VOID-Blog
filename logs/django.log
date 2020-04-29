@@ -259,3 +259,367 @@ ERROR 2020-04-29 23:56:59,442 basehttp 154 "GET /music/api/?server=netease&type=
 WARNING 2020-04-30 00:18:55,381 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
 WARNING 2020-04-30 00:18:55,593 log 228 Not Found: /favicon.ico
 WARNING 2020-04-30 00:18:55,593 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5278
+ERROR 2020-04-30 00:28:58,327 log 228 Internal Server Error: /music/api/
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 160, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "F:\Anaconda\envs\Django_env\lib\socket.py", line 743, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 381, in _make_request
+    self._validate_conn(conn)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 976, in _validate_conn
+    conn.connect()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 308, in connect
+    conn = self._new_conn()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 172, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000002899BEF9160>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 725, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\retry.py", line 439, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899BEF9160>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\work\my_lesson\python\django_mod\Django_VOID_Blog\apps\music\views.py", line 66, in get
+    res = requests.get(api.format(server, type, id, auth, r), headers=header, verify=False)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 245, in resolve_redirects
+    **adapter_kwargs
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899BEF9160>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+ERROR 2020-04-30 00:28:58,335 basehttp 154 "GET /music/api/?server=netease&type=url&id=28378127&auth=922894ab3efb01e743eb04a9b2aec700b6e5aa7454558de2cbf1b8532f978b8c HTTP/1.1" 500 185521
+ERROR 2020-04-30 00:35:44,241 log 228 Internal Server Error: /music/api/
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 160, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "F:\Anaconda\envs\Django_env\lib\socket.py", line 743, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 381, in _make_request
+    self._validate_conn(conn)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 976, in _validate_conn
+    conn.connect()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 308, in connect
+    conn = self._new_conn()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 172, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000002899BE89D68>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 725, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\retry.py", line 439, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899BE89D68>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\work\my_lesson\python\django_mod\Django_VOID_Blog\apps\music\views.py", line 66, in get
+    res = requests.get(api.format(server, type, id, auth, r), headers=header, verify=False)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 245, in resolve_redirects
+    **adapter_kwargs
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899BE89D68>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+ERROR 2020-04-30 00:35:44,245 basehttp 154 "GET /music/api/?server=netease&type=url&id=28378127&auth=922894ab3efb01e743eb04a9b2aec700b6e5aa7454558de2cbf1b8532f978b8c HTTP/1.1" 500 185467
+ERROR 2020-04-30 00:36:02,616 log 228 Internal Server Error: /music/api/
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 160, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "F:\Anaconda\envs\Django_env\lib\socket.py", line 743, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 381, in _make_request
+    self._validate_conn(conn)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 976, in _validate_conn
+    conn.connect()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 308, in connect
+    conn = self._new_conn()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 172, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000002899CFE9E48>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 725, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\retry.py", line 439, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899CFE9E48>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\work\my_lesson\python\django_mod\Django_VOID_Blog\apps\music\views.py", line 66, in get
+    res = requests.get(api.format(server, type, id, auth, r), headers=header, verify=False)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 245, in resolve_redirects
+    **adapter_kwargs
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899CFE9E48>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+ERROR 2020-04-30 00:36:02,623 basehttp 154 "GET /music/api/?server=netease&type=url&id=28378127&auth=922894ab3efb01e743eb04a9b2aec700b6e5aa7454558de2cbf1b8532f978b8c HTTP/1.1" 500 185469
+ERROR 2020-04-30 00:36:13,495 log 228 Internal Server Error: /music/api/
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 160, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "F:\Anaconda\envs\Django_env\lib\socket.py", line 743, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 381, in _make_request
+    self._validate_conn(conn)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 976, in _validate_conn
+    conn.connect()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 308, in connect
+    conn = self._new_conn()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 172, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000002899CF48B70>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 725, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\retry.py", line 439, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899CF48B70>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\work\my_lesson\python\django_mod\Django_VOID_Blog\apps\music\views.py", line 66, in get
+    res = requests.get(api.format(server, type, id, auth, r), headers=header, verify=False)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 245, in resolve_redirects
+    **adapter_kwargs
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=28378127 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899CF48B70>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+ERROR 2020-04-30 00:36:13,498 basehttp 154 "GET /music/api/?server=netease&type=url&id=28378127&auth=922894ab3efb01e743eb04a9b2aec700b6e5aa7454558de2cbf1b8532f978b8c HTTP/1.1" 500 183950
+ERROR 2020-04-30 00:38:05,179 log 228 Internal Server Error: /music/api/
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 160, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "F:\Anaconda\envs\Django_env\lib\socket.py", line 743, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 677, in urlopen
+    chunked=chunked,
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 381, in _make_request
+    self._validate_conn(conn)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 976, in _validate_conn
+    conn.connect()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 308, in connect
+    conn = self._new_conn()
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connection.py", line 172, in _new_conn
+    self, "Failed to establish a new connection: %s" % e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x000002899CF28828>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 449, in send
+    timeout=timeout
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\connectionpool.py", line 725, in urlopen
+    method, url, error=e, _pool=self, _stacktrace=sys.exc_info()[2]
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\urllib3\util\retry.py", line 439, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=31421443 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899CF28828>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 68, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\django\views\generic\base.py", line 88, in dispatch
+    return handler(request, *args, **kwargs)
+  File "F:\work\my_lesson\python\django_mod\Django_VOID_Blog\apps\music\views.py", line 66, in get
+    res = requests.get(api.format(server, type, id, auth, r), headers=header, verify=False)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 76, in get
+    return request('get', url, params=params, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 530, in request
+    resp = self.send(prep, **send_kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 665, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 245, in resolve_redirects
+    **adapter_kwargs
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\sessions.py", line 643, in send
+    r = adapter.send(request, **kwargs)
+  File "F:\Anaconda\envs\Django_env\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='meting.api.i-meto.com', port=443): Max retries exceeded with url: /retry/?server=netease&id=31421443 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x000002899CF28828>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed',))
+ERROR 2020-04-30 00:38:05,182 basehttp 154 "GET /music/api/?server=netease&type=url&id=31421443&auth=99d251423e9d872c4a54695b6a5409ed076cbb5a94d1140dacdf541904248c5d HTTP/1.1" 500 185523
+WARNING 2020-04-30 01:36:08,068 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:36:08,292 log 228 Not Found: /favicon.ico
+WARNING 2020-04-30 01:36:08,293 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5278
+WARNING 2020-04-30 01:37:13,375 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:38:38,208 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+ERROR 2020-04-30 01:38:38,309 basehttp 154 "GET /music/api/?server=netease&type=url&id=430297644&auth=aa3c84e3699269c3aff7cb73773e106cca6af3534149bfd796aba2900db0a1ad HTTP/1.1" 500 59
+WARNING 2020-04-30 01:40:41,487 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+ERROR 2020-04-30 01:40:47,361 basehttp 154 "GET /music/api/?server=netease&type=url&id=430297644&auth=aa3c84e3699269c3aff7cb73773e106cca6af3534149bfd796aba2900db0a1ad HTTP/1.1" 500 59
+WARNING 2020-04-30 01:41:03,488 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:49:21,706 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:49:21,848 log 228 Not Found: /favicon.ico
+WARNING 2020-04-30 01:49:21,848 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5278
+WARNING 2020-04-30 01:51:20,363 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:51:33,167 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:51:40,198 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+WARNING 2020-04-30 01:51:40,453 log 228 Not Found: /favicon.ico
+WARNING 2020-04-30 01:51:40,453 basehttp 154 "GET /favicon.ico HTTP/1.1" 404 5278
+WARNING 2020-04-30 01:52:46,942 basehttp 154 "GET /static/json/ExSearch.json HTTP/1.1" 404 1678
+ERROR 2020-04-30 01:52:53,285 basehttp 154 "GET /music/api/?server=netease&type=url&id=430297644&auth=aa3c84e3699269c3aff7cb73773e106cca6af3534149bfd796aba2900db0a1ad HTTP/1.1" 500 59
