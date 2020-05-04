@@ -18,7 +18,7 @@ def CrawlAPI(server, type, id, auth, r):
                 for i in data:
                     i['url'] = i['url'].replace('https://api.i-meto.com/meting/api',
                                                 'http://127.0.0.1:8000/music/api/')
-                    i['cover'] = i['cover'].replace('https://api.i-meto.com/meting/api',
+                    i['author'] = i['author'].replace('https://api.i-meto.com/meting/api',
                                                     'http://127.0.0.1:8000/music/api/')
                     i['lrc'] = i['lrc'].replace('https://api.i-meto.com/meting/api',
                                                 'http://127.0.0.1:8000/music/api/')

@@ -1,10 +1,12 @@
-import json, os, logging, re
+import json, os, logging, re, mistune
+
+from lxml import etree
 
 logger = logging.getLogger('django')
 
-article_url = 'https://www.breezed.cn/article/'
-tags_url = 'https://www.breezed.cn/tag/'
-category_url = 'https://www.breezed.cn/category/'
+article_url = 'http://127.0.0.1/article/'
+tags_url = 'http://127.0.0.1/tag/'
+category_url = 'http://127.0.0.1/category/'
 
 tree = {
     "posts": [
@@ -13,37 +15,37 @@ tree = {
         {
             "title": "观影",
             "date": "2019-10-10T10:10:00+10:00",
-            "path": "https://www.breezed.cn/movie/",
+            "path": "http://127.0.0.1/movie/",
             "text": ""
         },
         {
             "title": "追番",
             "date": "2019-10-10T10:10:00+10:00",
-            "path": "https://www.breezed.cn/bangumi/",
+            "path": "http://127.0.0.1/bangumi/",
             "text": ""
         },
         {
             "title": "阅读",
             "date": "2019-10-10T10:10:00+10:00",
-            "path": "https://www.breezed.cn/book/",
+            "path": "http://127.0.0.1/book/",
             "text": ""
         },
         {
             "title": "音乐",
             "date": "2019-10-10T10:10:00+10:00",
-            "path": "https://www.breezed.cn/music/",
+            "path": "http://127.0.0.1/music/",
             "text": ""
         },
         {
             "title": "友链",
             "date": "2019-10-10T10:10:00+10:00",
-            "path": "https://www.breezed.cn/links/",
+            "path": "http://127.0.0.1/links/",
             "text": ""
         },
         {
             "title": "归档",
             "date": "2019-10-10T10:10:00+10:00",
-            "path": "https://www.breezed.cn/archives/",
+            "path": "http://127.0.0.1/archives/",
             "text": ""
         }
     ]
@@ -78,8 +80,14 @@ def WriteSearchV2(value):
     ex_title = article.title
     ex_date = article.update_time.strftime("%Y-%m-%d %H:%M:%S")
     ex_path = article_url + '{}/'.format(article.id)
-    filtrate = re.compile(u'#+|`+|"{3}|-+|\s+')
-    ex_text = filtrate.sub(r'', article.content[:200])
+    content = mistune.markdown(article.content)
+    page = etree.HTML(content)
+    text = page.xpath('string(.)')
+    sub_n = re.compile(r'\n')
+    sub_text = sub_n.sub('', text)
+    sub_tag = re.compile(r'<.*?>.*?</.*?>')
+    sub_text = sub_tag.sub('', sub_text)
+    ex_text = sub_text[:200] + '...'
     ex_tags = [
         {
             'name': i.name,
