@@ -9,4 +9,4 @@ mistune==0.8.4
 Pillow==7.1.1
 pytz==2019.3
 requests==2.23.0
-urllib3==1.25.9
+urllib3==1.26.5
