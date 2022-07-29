@@ -5,7 +5,7 @@ django-mdeditor==0.1.18
 idna==2.9
 lxml==4.5.0
 Markdown==3.2.1
-mistune==0.8.4
+mistune==2.0.3
 Pillow==7.1.1
 pytz==2019.3
 requests==2.23.0
